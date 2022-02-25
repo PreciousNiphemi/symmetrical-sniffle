@@ -2,9 +2,5 @@ export {
   successState,
   failureState,
   unAvailableState,
-  smsSuccessStateDetails,
-  voiceSuccessStateDetails,
-  emailSuccessStateDetails,
-  whatsappSuccessStateDetails,
-  verificationSuccessStateDetails,
+  successStateDetails,
 } from "./apiCallsAtom";

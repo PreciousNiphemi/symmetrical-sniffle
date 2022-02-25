@@ -14,24 +14,23 @@ import {
   successState,
   failureState,
   unAvailableState,
-  smsSuccessStateDetails,
-  voiceSuccessStateDetails,
-  emailSuccessStateDetails,
-  whatsappSuccessStateDetails,
-  verificationSuccessStateDetails,
+  successStateDetails,
 } from "../../atoms";
 import { MdChatBubbleOutline } from "react-icons/md";
+import { MdOutlineEmail } from "react-icons/md";
+import { FiCheckCircle } from "react-icons/fi";
+import { FaVoicemail } from "react-icons/fa";
+import { BsWhatsapp } from "react-icons/bs";
 import { BsArrowRightShort } from "react-icons/bs";
-import { getSmsDetails } from "../../utils";
+import { getApiDataDetails } from "../../utils";
 
 export const PricingCard = ({
   variant,
   selectedCurrencyCode,
   selectedCountryCode,
 }) => {
-  const [smsStateDetails, setSmsStateDetails] = useRecoilState(
-    smsSuccessStateDetails
-  );
+  const [apiResponseStateDetails, setApiResponseStateDetails] =
+    useRecoilState(successStateDetails);
   const [unAvailableStateDetails, setUnAvailableStateDetails] =
     useRecoilState(unAvailableState);
 
@@ -41,11 +40,11 @@ export const PricingCard = ({
     useRecoilState(failureState);
   useEffect(() => {
     if (selectedCountryCode.length > 0 && selectedCurrencyCode.length > 0) {
-      getSmsDetails(
+      getApiDataDetails(
         variant,
         selectedCountryCode,
         selectedCurrencyCode,
-        setSmsStateDetails,
+        setApiResponseStateDetails,
         setApiResponseFailureState,
         setApiResponseSuccessState,
         setUnAvailableStateDetails
@@ -53,7 +52,6 @@ export const PricingCard = ({
     }
   }, [selectedCountryCode, selectedCurrencyCode]);
 
-  console.log(smsStateDetails, "adeeee");
   return (
     <Box
       minW="340px"
@@ -76,7 +74,17 @@ export const PricingCard = ({
             backgroundColor="rgba(0, 128, 252, 0.3)"
           >
             <Icon
-              as={MdChatBubbleOutline}
+              as={
+                variant === "Voice"
+                  ? FaVoicemail
+                  : variant === "Email"
+                  ? MdOutlineEmail
+                  : variant === "Whatsapp"
+                  ? BsWhatsapp
+                  : variant === "Verification"
+                  ? FiCheckCircle
+                  : MdChatBubbleOutline
+              }
               color="rgb(3, 13, 70)"
               width={4}
               height={4}

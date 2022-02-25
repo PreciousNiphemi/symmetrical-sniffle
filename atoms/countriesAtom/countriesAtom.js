@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 
 export const countriesState = atom({
-  key: "countriesState",
+  key: "countriesStateDetails",
   default: null,
 });
 

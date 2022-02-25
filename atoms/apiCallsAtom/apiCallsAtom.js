@@ -1,41 +1,28 @@
 import { atom, selector } from "recoil";
 
+//Need to refractor this whole thing. If they bring light on time
+
 export const successState = atom({
-  key: "success",
+  key: "helloThere",
   default: false,
 });
 
 export const failureState = atom({
-  key: "failure",
+  key: "holla",
   default: false,
 });
 
-export const smsSuccessStateDetails = atom({
+export const successStateDetails = atom({
   key: "sms",
   default: null,
 });
 
 export const voiceSuccessStateDetails = atom({
-  key: "voice",
-  default: null,
-});
-
-export const emailSuccessStateDetails = atom({
-  key: "email",
-  default: null,
-});
-
-export const whatsappSuccessStateDetails = atom({
-  key: "whatsapp",
-  default: null,
-});
-
-export const verificationSuccessStateDetails = atom({
-  key: "verification",
+  key: "vocal",
   default: null,
 });
 
 export const unAvailableState = atom({
-  key: "unavailable",
+  key: "dutch",
   default: false,
 });

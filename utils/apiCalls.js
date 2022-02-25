@@ -1,4 +1,4 @@
-export const getSmsDetails = async (
+export const getApiDataDetails = async (
   variant,
   countryCode,
   currencyCode,
@@ -19,13 +19,12 @@ export const getSmsDetails = async (
           setApiResponseSuccessState(true);
           setSmsStateDetails(response.data);
         } else if (response.code === 500) {
-          setUnAvailableStateDetails(true);
+          setApiResponseFailureState(true);
         }
       })
       .catch((err) => {
         console.log(err);
         // only setting this here because if one fails then the rest also fails.
-        setApiResponseFailureState(true);
       });
   }
 };
