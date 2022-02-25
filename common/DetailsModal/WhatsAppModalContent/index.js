@@ -1,0 +1,1 @@
+export { WhatsAppModalContent } from "./WhatsAppModalContent";
