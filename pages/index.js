@@ -138,9 +138,9 @@ export default function Home() {
           spacing={{ base: "4", md: "", lg: "", xl: "8" }}
           marginTop={{ base: "4", md: "", lg: "", xl: "8" }}
         >
-          {cardConstants.map((card) => {
+          {cardConstants.map((card, cardID) => {
             return (
-              <WrapItem>
+              <WrapItem key={cardID}>
                 <PricingCard
                   variant={card.variant}
                   selectedCurrencyCode={selectedCurrencyCode}

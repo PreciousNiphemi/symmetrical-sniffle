@@ -17,7 +17,7 @@ export const getSmsDetails = async (
       .then((response) => {
         if (response.code === 200) {
           setApiResponseSuccessState(true);
-          return setSmsStateDetails(response.data);
+          setSmsStateDetails(response.data);
         } else if (response.code === 500) {
           setUnAvailableStateDetails(true);
         }

@@ -53,6 +53,7 @@ export const PricingCard = ({
     }
   }, [selectedCountryCode, selectedCurrencyCode]);
 
+  console.log(smsStateDetails, "adeeee");
   return (
     <Box
       minW="240px"
