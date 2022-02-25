@@ -56,7 +56,8 @@ export const PricingCard = ({
   console.log(smsStateDetails, "adeeee");
   return (
     <Box
-      minW="240px"
+      minW="340px"
+      maxWidth="340px"
       minH="240px"
       display="flex"
       borderWidth="1px"
