@@ -63,6 +63,11 @@ export const PricingCard = ({
       borderColor="#0080fc"
       justifyContent="center"
       backgroundColor="#fff"
+      display={
+        selectedCountryCode.length > 0 && selectedCurrencyCode.length > 0
+          ? "flex"
+          : "none"
+      }
       padding={{ base: 4, md: 4, lg: 4, xl: 4 }}
     >
       <Stack spacing={4}>

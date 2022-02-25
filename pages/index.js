@@ -126,7 +126,14 @@ export default function Home() {
               />
             </Box>
           </Stack>
-          <Text textAlign="center">
+          <Text
+            textAlign="center"
+            display={
+              selectedCountryCode.length > 0 && selectedCurrencyCode.length > 0
+                ? "none"
+                : "block"
+            }
+          >
             Select Country and Currency to get Pricing
           </Text>
         </Stack>
