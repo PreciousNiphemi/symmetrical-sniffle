@@ -13,7 +13,7 @@ import { VoiceCallModalContent } from "./VoiceCallModalContent";
 import { WhatsAppModalContent } from "./WhatsAppModalContent";
 import { VerificationModalContent } from "./VerificationModalContent";
 
-export const DetailsomoModal = (props) => {
+export const DetailsModalContent = (props) => {
   switch (props.variant) {
     case "SMS":
       return <SmsModalContent />;
@@ -24,14 +24,14 @@ export const DetailsomoModal = (props) => {
     case "Whatsapp":
       return <WhatsAppModalContent />;
     case "Verificaiton":
-      return "hello";
+      return <VerificationModalContent />;
 
     default:
       return;
   }
 };
 
-export const DetailsModal = () => {
+export const DetailsModal = ({}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -42,7 +42,16 @@ export const DetailsModal = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <VerificationModalContent />
+            <DetailsModalContent
+              {...(oobCode
+                ? {
+                    variant: "change-password",
+                    oobCode: oobCode,
+                  }
+                : {
+                    variant: "enter-email",
+                  })}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

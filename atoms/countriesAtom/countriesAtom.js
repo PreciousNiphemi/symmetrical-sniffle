@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { atom, selector } from "recoil";
 
 export const countriesState = atom({
@@ -7,7 +6,7 @@ export const countriesState = atom({
 });
 
 export const countryListState = selector({
-  key: "selectedCountry",
+  key: "availableCountry",
   get: ({ get }) => {
     const countryList = get(countriesState);
     const countries = countryList
@@ -30,7 +29,12 @@ export const countryCurrenciesState = selector({
   },
 });
 
+export const selectedCountryState = atom({
+  key: "selectedCountry",
+  default: false,
+});
+
 export const selectedCurrencyState = atom({
   key: "selectedCurrency",
-  default: "",
+  default: false,
 });

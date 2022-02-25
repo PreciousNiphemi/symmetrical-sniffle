@@ -15,22 +15,29 @@ import { PricingCard, DetailsModal } from "../common";
 import {
   countriesState,
   countryListState,
+  selectedCurrencyState,
+  selectedCountryState,
   countryCurrenciesState,
 } from "../atoms";
+// import { getSmsDetails } from "../utils";
+import { cardConstants } from "../constants";
 
 export default function Home() {
   const toast = useToast();
+  const [selectedCountryCode, setSelectedCountryCode] =
+    useState(selectedCountryState);
+  const [selectedCurrencyCode, setSelectedCurrencyCode] = useState(
+    selectedCurrencyState
+  );
   const [countries, setCountries] = useRecoilState(countriesState);
   const currencies = useRecoilValue(countryCurrenciesState);
   const country = useRecoilValue(countryListState);
 
   const options = [];
   const countryOptions = [];
-
   currencies.map((currency) => {
     return options.push({ value: currency, label: currency });
   });
-
   country?.map((countryName) => {
     return countryOptions.push({ value: countryName, label: countryName });
   });
@@ -51,10 +58,21 @@ export default function Home() {
   };
   useEffect(() => {
     getCountries();
-    // console.log(currencies, "inside useEffect");
   }, []);
 
-  console.log(countryOptions, "before return");
+  const handleCountryChange = ({ value }) => {
+    const countryShortCode = countries?.filter(
+      (country) => country.name === value
+    );
+    const availableShortCode = countryShortCode.map(
+      (shortCode) => shortCode.short_code
+    );
+    return setSelectedCountryCode(availableShortCode[0]);
+  };
+
+  const handleCurrencyChange = ({ value }) => {
+    return setSelectedCurrencyCode(value);
+  };
 
   return (
     <Flex
@@ -71,7 +89,7 @@ export default function Home() {
             fontWeight="700"
             textAlign="center"
             color="rgb(3, 13, 70)"
-            fontSize={{ base: "", md: "", lg: "", xl: "36px" }}
+            fontSize={{ base: "", md: "20px", lg: "", xl: "36px" }}
           >
             Sendchamp Pricing
           </Text>
@@ -93,16 +111,18 @@ export default function Home() {
               <Select
                 size="lg"
                 options={countryOptions}
-                placeholder="Select Country"
                 backgroundColor="#fff"
+                placeholder="Select Country"
+                onChange={handleCountryChange}
               />
             </Box>
             <Box minWidth="200px">
               <Select
                 size="lg"
                 options={options}
-                placeholder="Select Currency"
                 backgroundColor="#fff"
+                onChange={handleCurrencyChange}
+                placeholder="Select Currency"
               />
             </Box>
           </Stack>
@@ -111,30 +131,26 @@ export default function Home() {
           </Text>
         </Stack>
       </Container>
-      <DetailsModal />
-      {/* <Flex justifyContent="center" alignSelf="center" width="100%">
+      {/* <DetailsModal /> */}
+      <Flex justifyContent="center" alignSelf="center" width="100%">
         <Wrap
           justify="center"
           spacing={{ base: "4", md: "", lg: "", xl: "8" }}
           marginTop={{ base: "4", md: "", lg: "", xl: "8" }}
         >
-          <WrapItem>
-            <PricingCard />
-          </WrapItem>
-          <WrapItem>
-            <PricingCard />
-          </WrapItem>
-          <WrapItem>
-            <PricingCard />
-          </WrapItem>
-          <WrapItem>
-            <PricingCard />
-          </WrapItem>
-          <WrapItem>
-            <PricingCard />
-          </WrapItem>
+          {cardConstants.map((card) => {
+            return (
+              <WrapItem>
+                <PricingCard
+                  variant={card.variant}
+                  selectedCurrencyCode={selectedCurrencyCode}
+                  selectedCountryCode={selectedCountryCode}
+                />
+              </WrapItem>
+            );
+          })}
         </Wrap>
-      </Flex> */}
+      </Flex>
     </Flex>
   );
 }

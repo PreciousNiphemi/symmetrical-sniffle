@@ -1,18 +1,58 @@
+import React, { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   Box,
   HStack,
   Grid,
   GridItem,
   Stack,
-  Flex,
   Button,
   Icon,
   Text,
 } from "@chakra-ui/react";
+import {
+  successState,
+  failureState,
+  unAvailableState,
+  smsSuccessStateDetails,
+  voiceSuccessStateDetails,
+  emailSuccessStateDetails,
+  whatsappSuccessStateDetails,
+  verificationSuccessStateDetails,
+} from "../../atoms";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { BsArrowRightShort } from "react-icons/bs";
+import { getSmsDetails } from "../../utils";
 
-export const PricingCard = () => {
+export const PricingCard = ({
+  variant,
+  selectedCurrencyCode,
+  selectedCountryCode,
+}) => {
+  const [smsStateDetails, setSmsStateDetails] = useRecoilState(
+    smsSuccessStateDetails
+  );
+  const [unAvailableStateDetails, setUnAvailableStateDetails] =
+    useRecoilState(unAvailableState);
+
+  const [apiResponseSuccessState, setApiResponseSuccessState] =
+    useRecoilState(successState);
+  const [apiResponseFailureState, setApiResponseFailureState] =
+    useRecoilState(failureState);
+  useEffect(() => {
+    if (selectedCountryCode.length > 0 && selectedCurrencyCode.length > 0) {
+      getSmsDetails(
+        variant,
+        selectedCountryCode,
+        selectedCurrencyCode,
+        setSmsStateDetails,
+        setApiResponseFailureState,
+        setApiResponseSuccessState,
+        setUnAvailableStateDetails
+      );
+    }
+  }, [selectedCountryCode, selectedCurrencyCode]);
+
   return (
     <Box
       minW="240px"
@@ -40,7 +80,7 @@ export const PricingCard = () => {
               height={4}
             />
           </Button>
-          <Text>SMS</Text>
+          <Text>{variant}</Text>
         </HStack>
 
         <Grid
@@ -49,7 +89,17 @@ export const PricingCard = () => {
           gap={4}
         >
           <GridItem colSpan={1}>
-            <Text> To Send SMS</Text>
+            <Text>
+              {variant === "Voice"
+                ? ` To Make Calls`
+                : variant === "Email"
+                ? `Price Per Mail`
+                : variant === "Whatsapp"
+                ? `To Send Message`
+                : variant === "Verification"
+                ? `To Send OTP`
+                : ` To Send ${variant}`}
+            </Text>
           </GridItem>
           <GridItem colSpan={1}>
             <Stack my="auto">
@@ -60,12 +110,23 @@ export const PricingCard = () => {
             </Stack>
           </GridItem>
           <GridItem colSpan={1}>
-            <Text>To Recieve Call </Text>
+            <Text>
+              {variant === "Voice"
+                ? ` To Receive Calls`
+                : variant === "Email"
+                ? ``
+                : variant === "Whatsapp"
+                ? `To Receive Message`
+                : variant === "Verificaiton"
+                ? `To Confirm OTP`
+                : `To Receive ${variant}`}
+            </Text>
           </GridItem>
           <GridItem colSpan={1}>
-            <Text>Not Avaialable</Text>
+            <Text>{variant === "Email" ? "" : "Not Available"}</Text>
           </GridItem>
         </Grid>
+        {/* To Receive SMS */}
         <HStack
           alignSelf="flex-end"
           cursor="pointer"

@@ -3,4 +3,5 @@ export {
   countryListState,
   countryCurrenciesState,
   selectedCurrencyState,
+  selectedCountryState,
 } from "./countriesAtom";
