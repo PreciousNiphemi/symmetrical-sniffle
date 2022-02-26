@@ -1,13 +1,8 @@
 import Head from "next/head";
 import "../styles/globals.css";
-import { ChakraProvider } from "@chakra-ui/react";
-import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { RecoilRoot } from "recoil";
+import theme from "../theme";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -21,7 +16,7 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <ChakraProvider>
+      <ChakraProvider theme={extendTheme(theme)}>
         <RecoilRoot>
           <Component {...pageProps} />
         </RecoilRoot>

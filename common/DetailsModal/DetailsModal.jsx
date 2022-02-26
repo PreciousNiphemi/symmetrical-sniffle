@@ -6,18 +6,18 @@ import { VoiceCallModalContent } from "./VoiceCallModalContent";
 import { WhatsAppModalContent } from "./WhatsAppModalContent";
 import { VerificationModalContent } from "./VerificationModalContent";
 
-export const DetailsModalContent = ({ variant, data }) => {
+export const DetailsModalContent = ({ variant, data, code }) => {
   switch (variant) {
     case "SMS":
-      return <SmsModalContent />;
+      return <SmsModalContent smsData={data} code={code} />;
     case "Voice":
-      return <VoiceCallModalContent />;
+      return <VoiceCallModalContent voiceData={data} code={code} />;
     case "Email":
-      return <EmailModalContent />;
+      return <EmailModalContent emailData={data} code={code} />;
     case "Whatsapp":
-      return <WhatsAppModalContent />;
+      return <WhatsAppModalContent whatsAppData={data} code={code} />;
     case "Verification":
-      return <VerificationModalContent />;
+      return <VerificationModalContent verifiedData={data} code={code} />;
 
     default:
       return;
@@ -28,6 +28,7 @@ export const DetailsModal = ({
   isOpen,
   onClose,
   variant,
+  selectedCurrencyCode,
   smsApiResponseStateDetails,
   voiceApiResponseStateDetails,
   emailApiResponseStateDetails,
@@ -45,26 +46,31 @@ export const DetailsModal = ({
                 ? {
                     variant: variant,
                     data: smsApiResponseStateDetails,
+                    code: selectedCurrencyCode,
                   }
                 : variant === "Voice"
                 ? {
                     variant: variant,
                     data: voiceApiResponseStateDetails,
+                    code: selectedCurrencyCode,
                   }
                 : variant === "Email"
                 ? {
                     variant: variant,
                     data: emailApiResponseStateDetails,
+                    code: selectedCurrencyCode,
                   }
                 : variant === "Whatsapp"
                 ? {
                     variant: variant,
                     data: whatsappApiResponseStateDetails,
+                    code: selectedCurrencyCode,
                   }
                 : variant === "Verification"
                 ? {
                     variant: variant,
                     data: verificationApiResponseStateDetails,
+                    code: selectedCurrencyCode,
                   }
                 : null
               : null)}

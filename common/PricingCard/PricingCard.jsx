@@ -156,7 +156,7 @@ export const PricingCard = ({
                         ? "#808080"
                         : "#000000"
                       : variant === "SMS"
-                      ? smsApiResponseStateDetails.code === "500"
+                      ? smsApiResponseStateDetails?.code === "500"
                         ? "#808080"
                         : "#000000"
                       : "#000000"
@@ -179,7 +179,7 @@ export const PricingCard = ({
                       ? "Not Available"
                       : `${selectedCurrencyCode}  0.00000 /token`
                     : variant === "SMS"
-                    ? smsApiResponseStateDetails.code === "500"
+                    ? smsApiResponseStateDetails?.code === "500"
                       ? "Not Available"
                       : `${selectedCurrencyCode} ${smsApiResponseStateDetails?.data?.dnd} /sms`
                     : null}
@@ -269,7 +269,7 @@ export const PricingCard = ({
                   ? null
                   : onOpen
                 : variant === "SMS"
-                ? smsApiResponseStateDetails.code === "500"
+                ? smsApiResponseStateDetails?.code === "500"
                   ? null
                   : onOpen
                 : null
@@ -284,6 +284,7 @@ export const PricingCard = ({
         isOpen={isOpen}
         onClose={onClose}
         variant={variant}
+        selectedCurrencyCode={selectedCurrencyCode}
         smsApiResponseStateDetails={smsApiResponseStateDetails}
         voiceApiResponseStateDetails={voiceApiResponseStateDetails}
         emailApiResponseStateDetails={emailApiResponseStateDetails}

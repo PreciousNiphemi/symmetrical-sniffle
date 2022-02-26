@@ -12,7 +12,7 @@ import {
 import { FiCheckCircle } from "react-icons/fi";
 import { VscVerified } from "react-icons/vsc";
 
-export const VerificationModalContent = () => {
+export const VerificationModalContent = ({ verifiedData, code }) => {
   return (
     <Flex flexDir="column" paddingX={2} paddingY={9}>
       <Box>
@@ -54,7 +54,7 @@ export const VerificationModalContent = () => {
                   Starts at
                 </Text>
                 <Text color="#1A202C" fontWeight="700" wordBreak>
-                  EUR 0.00000 /token
+                  {`${code}  0.00000 /token`}
                 </Text>
               </Stack>
             </GridItem>
@@ -68,20 +68,16 @@ export const VerificationModalContent = () => {
                   Starts at
                 </Text>
                 <Text color="#1A202C" fontWeight="700" wordBreak>
-                  EUR 0.00044 /token
+                  {`${code} ${verifiedData?.data?.charge} /token`}
                 </Text>
               </Stack>
             </GridItem>
           </Grid>
         </Flex>
-        <Box
-          mt={{ base: "", md: "", lg: "", xl: 14 }}
-          height={0.2}
-          backgroundColor="#1A202C"
-        />
+        <Box mt={{ base: 4, xl: 6 }} height={0.2} backgroundColor="#1A202C" />
       </Box>
       <Flex
-        mt={{ base: "", md: "", lg: "", xl: 14 }}
+        mt={{ base: 6, md: 8, lg: 10, xl: 14 }}
         px={{ base: "", md: "", lg: "", xl: 4 }}
       >
         <Stack spacing="4">
@@ -120,7 +116,7 @@ export const VerificationModalContent = () => {
                   fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                   fontWeight="700"
                 >
-                  XCD
+                  {code}
                 </Text>
                 <Text
                   color="#1A202C"
@@ -128,7 +124,7 @@ export const VerificationModalContent = () => {
                   fontWeight="700"
                   wordBreak
                 >
-                  0.00184 /sms
+                  {`0.00000 /token`}
                 </Text>
               </Stack>
             </GridItem>
@@ -170,7 +166,7 @@ export const VerificationModalContent = () => {
                   fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                   fontWeight="700"
                 >
-                  XCD
+                  {code}
                 </Text>
                 <Text
                   color="#1A202C"
@@ -178,7 +174,7 @@ export const VerificationModalContent = () => {
                   fontWeight="700"
                   wordBreak
                 >
-                  0.00184 /sms
+                  {`${verifiedData?.data?.charge} /token`}
                 </Text>
               </Stack>
             </GridItem>

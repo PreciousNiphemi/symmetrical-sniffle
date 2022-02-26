@@ -7,17 +7,18 @@ import {
   Stack,
   HStack,
   Button,
+  Spacer,
   GridItem,
 } from "@chakra-ui/react";
 import { MdOutlineEmail } from "react-icons/md";
 import { VscVerified } from "react-icons/vsc";
 
-export const EmailModalContent = () => {
+export const EmailModalContent = ({ emailData, code }) => {
   return (
     <Flex flexDir="column" paddingX={2} paddingY={9}>
       <Box>
         <Flex justifyContent="space-between">
-          <HStack spacing="3">
+          <HStack spacing="3" mr={{ base: 4, md: 0 }}>
             <Button
               width={10}
               height={10}
@@ -46,7 +47,10 @@ export const EmailModalContent = () => {
             gap={6}
           >
             <GridItem colSpan={1}>
-              <Text fontWeight="800"> Price Per Mail</Text>
+              <Text fontWeight="800" wordBreak>
+                {" "}
+                Price Per Mail
+              </Text>
             </GridItem>
             <GridItem colSpan={1}>
               <Stack my="auto">
@@ -54,20 +58,20 @@ export const EmailModalContent = () => {
                   Starts at
                 </Text>
                 <Text color="#1A202C" fontWeight="700" wordBreak>
-                  AED 0.00184 /sms
+                  {`${code} ${emailData?.data?.charge} /mail`}
                 </Text>
               </Stack>
             </GridItem>
           </Grid>
         </Flex>
         <Box
-          mt={{ base: "", md: "", lg: "", xl: 14 }}
+          mt={{ base: 6, md: 8, lg: 10, xl: 14 }}
           height={0.2}
           backgroundColor="#1A202C"
         />
       </Box>
       <Flex
-        mt={{ base: "", md: "", lg: "", xl: 14 }}
+        mt={{ base: 6, md: 8, lg: 10, xl: 14 }}
         px={{ base: "", md: "", lg: "", xl: 4 }}
       >
         <Stack spacing="4">
@@ -106,7 +110,7 @@ export const EmailModalContent = () => {
                   fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                   fontWeight="700"
                 >
-                  XCD
+                  {code}
                 </Text>
                 <Text
                   color="#1A202C"
@@ -114,7 +118,7 @@ export const EmailModalContent = () => {
                   fontWeight="700"
                   wordBreak
                 >
-                  AED 0.00184 /sms
+                  {` ${emailData?.data?.charge} /mail`}
                 </Text>
               </Stack>
             </GridItem>

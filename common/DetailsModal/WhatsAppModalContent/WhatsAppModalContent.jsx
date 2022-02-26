@@ -13,7 +13,7 @@ import { BsWhatsapp } from "react-icons/bs";
 
 import { VscVerified } from "react-icons/vsc";
 
-export const WhatsAppModalContent = () => {
+export const WhatsAppModalContent = ({ whatsAppData, code }) => {
   return (
     <Flex flexDir="column" paddingX={2} paddingY={9}>
       <Box>
@@ -47,7 +47,7 @@ export const WhatsAppModalContent = () => {
             gap={6}
           >
             <GridItem colSpan={1}>
-              <Text fontWeight="800"> To Send SMS</Text>
+              <Text fontWeight="800"> To Send Message</Text>
             </GridItem>
             <GridItem colSpan={1}>
               <Stack my="auto">
@@ -55,30 +55,26 @@ export const WhatsAppModalContent = () => {
                   Starts at
                 </Text>
                 <Text color="#1A202C" fontWeight="700" wordBreak>
-                  AED 0.00184 /sms
+                  {`${code} ${whatsAppData?.data?.template} /msg`}
                 </Text>
               </Stack>
             </GridItem>
             <GridItem colSpan={1}>
-              <Text fontWeight="800"> To Recieve SMS</Text>
+              <Text fontWeight="800"> To Recieve Message</Text>
             </GridItem>
             <GridItem colSpan={1}>
               <Stack my="auto">
-                <Text fontSize="14" fontWeight="800" color="#808080">
-                  Not Available
+                <Text fontSize="14" fontWeight="800">
+                  {`${code}  0.00000 /msg`}
                 </Text>
               </Stack>
             </GridItem>
           </Grid>
         </Flex>
-        <Box
-          mt={{ base: "", md: "", lg: "", xl: 6 }}
-          height={0.2}
-          backgroundColor="#1A202C"
-        />
+        <Box mt={{ base: 4, xl: 6 }} height={0.2} backgroundColor="#1A202C" />
       </Box>
       <Flex
-        mt={{ base: "", md: "", lg: "", xl: 14 }}
+        mt={{ base: 6, md: 8, lg: 10, xl: 14 }}
         px={{ base: "", md: "", lg: "", xl: 4 }}
       >
         <Stack spacing="4">
@@ -129,7 +125,7 @@ export const WhatsAppModalContent = () => {
                       fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                       fontWeight="700"
                     >
-                      XCD
+                      {code}
                     </Text>
                     <Text
                       color="#1A202C"
@@ -137,7 +133,7 @@ export const WhatsAppModalContent = () => {
                       fontWeight="700"
                       wordBreak
                     >
-                      0.00184 /sms
+                      {`0.00000 /msg`}
                     </Text>
                   </Stack>
                 </GridItem>
@@ -169,7 +165,7 @@ export const WhatsAppModalContent = () => {
                       fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                       fontWeight="700"
                     >
-                      XCD
+                      {code}
                     </Text>
                     <Text
                       color="#1A202C"
@@ -177,7 +173,7 @@ export const WhatsAppModalContent = () => {
                       fontWeight="700"
                       wordBreak
                     >
-                      0.00184 /sms
+                      {` ${whatsAppData?.data?.template} /msg`}
                     </Text>
                   </Stack>
                 </GridItem>
@@ -195,8 +191,8 @@ export const WhatsAppModalContent = () => {
                           color="#4F4F4F"
                           fontSize={{ base: "", md: "", lg: "", xl: "12" }}
                         >
-                          These are messages recieved by the business from the
-                          customers.
+                          These are structured and approved messsages by
+                          Meta(Facebook) from the business to the customer
                         </Text>
                       </Box>
                     </Stack>
@@ -209,7 +205,7 @@ export const WhatsAppModalContent = () => {
                       fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                       fontWeight="700"
                     >
-                      XCD
+                      {code}
                     </Text>
                     <Text
                       color="#1A202C"
@@ -217,7 +213,7 @@ export const WhatsAppModalContent = () => {
                       fontWeight="700"
                       wordBreak
                     >
-                      0.00184 /sms
+                      {`${whatsAppData?.data?.template} /msg`}
                     </Text>
                   </Stack>
                 </GridItem>

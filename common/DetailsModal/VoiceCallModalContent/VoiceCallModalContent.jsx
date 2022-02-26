@@ -13,7 +13,7 @@ import { FaVoicemail } from "react-icons/fa";
 
 import { VscVerified } from "react-icons/vsc";
 
-export const VoiceCallModalContent = () => {
+export const VoiceCallModalContent = ({ voiceData, code }) => {
   return (
     <Flex flexDir="column" paddingX={2} paddingY={9}>
       <Box>
@@ -55,7 +55,7 @@ export const VoiceCallModalContent = () => {
                   Starts at
                 </Text>
                 <Text color="#1A202C" fontWeight="700" wordBreak>
-                  AED 0.00184 /sms
+                  {` ${code} ${voiceData?.data?.incoming} /sec `}
                 </Text>
               </Stack>
             </GridItem>
@@ -71,14 +71,10 @@ export const VoiceCallModalContent = () => {
             </GridItem>
           </Grid>
         </Flex>
-        <Box
-          mt={{ base: "", md: "", lg: "", xl: 6 }}
-          height={0.2}
-          backgroundColor="#1A202C"
-        />
+        <Box mt={{ base: 4, xl: 6 }} height={0.2} backgroundColor="#1A202C" />
       </Box>
       <Flex
-        mt={{ base: "", md: "", lg: "", xl: 14 }}
+        mt={{ base: 6, md: 8, lg: 10, xl: 14 }}
         px={{ base: "", md: "", lg: "", xl: 4 }}
       >
         <Stack spacing="4">
@@ -121,7 +117,7 @@ export const VoiceCallModalContent = () => {
                   fontSize={{ base: "", md: "", lg: "", xl: "18" }}
                   fontWeight="700"
                 >
-                  XCD
+                  {code}
                 </Text>
                 <Text
                   color="#1A202C"
@@ -129,7 +125,7 @@ export const VoiceCallModalContent = () => {
                   fontWeight="700"
                   wordBreak
                 >
-                  0.00184 /sms
+                  {`${voiceData?.data?.incoming} /sec `}
                 </Text>
               </Stack>
             </GridItem>
