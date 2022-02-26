@@ -1,10 +1,4 @@
-import {
-  Modal,
-  Button,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-} from "@chakra-ui/react";
+import { Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-ui/react";
 
 import { EmailModalContent } from "./EmailModalContent";
 import { SmsModalContent } from "./SmsModalContent";
@@ -12,8 +6,8 @@ import { VoiceCallModalContent } from "./VoiceCallModalContent";
 import { WhatsAppModalContent } from "./WhatsAppModalContent";
 import { VerificationModalContent } from "./VerificationModalContent";
 
-export const DetailsModalContent = (props) => {
-  switch (props.variant) {
+export const DetailsModalContent = ({ variant, data }) => {
+  switch (variant) {
     case "SMS":
       return <SmsModalContent />;
     case "Voice":
@@ -30,48 +24,53 @@ export const DetailsModalContent = (props) => {
   }
 };
 
-export const DetailsModal = ({ isOpen, onClose, variant }) => {
+export const DetailsModal = ({
+  isOpen,
+  onClose,
+  variant,
+  smsApiResponseStateDetails,
+  voiceApiResponseStateDetails,
+  emailApiResponseStateDetails,
+  whatsappApiResponseStateDetails,
+  verificationApiResponseStateDetails,
+}) => {
   return (
-    <>
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
-      <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody>
-            <DetailsModalContent
-              {...(variant
-                ? variant === "SMS"
-                  ? {
-                      variant: variant,
-                      data: "hello",
-                    }
-                  : variant === "Voice"
-                  ? {
-                      variant: variant,
-                      data: "what",
-                    }
-                  : variant === "Email"
-                  ? {
-                      variant: variant,
-                      data: "duu",
-                    }
-                  : variant === "Whatsapp"
-                  ? {
-                      variant: variant,
-                      data: "omo",
-                    }
-                  : variant === "Verification"
-                  ? {
-                      variant: variant,
-                      data: "blah",
-                    }
-                  : null
-                : null)}
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+    <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalBody>
+          <DetailsModalContent
+            {...(variant
+              ? variant === "SMS"
+                ? {
+                    variant: variant,
+                    data: smsApiResponseStateDetails,
+                  }
+                : variant === "Voice"
+                ? {
+                    variant: variant,
+                    data: voiceApiResponseStateDetails,
+                  }
+                : variant === "Email"
+                ? {
+                    variant: variant,
+                    data: emailApiResponseStateDetails,
+                  }
+                : variant === "Whatsapp"
+                ? {
+                    variant: variant,
+                    data: whatsappApiResponseStateDetails,
+                  }
+                : variant === "Verification"
+                ? {
+                    variant: variant,
+                    data: verificationApiResponseStateDetails,
+                  }
+                : null
+              : null)}
+          />
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 };

@@ -1,19 +1,10 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
-//Need to refractor this whole thing. If they bring light on time
+//TODO
+// * Restructure atom state to make it easier to debug
 
-export const successState = atom({
-  key: "helloThere",
-  default: false,
-});
-
-export const failureState = atom({
-  key: "holla",
-  default: false,
-});
-
-export const successStateDetails = atom({
-  key: "sms",
+export const smsSuccessStateDetails = atom({
+  key: "message",
   default: null,
 });
 
@@ -22,7 +13,17 @@ export const voiceSuccessStateDetails = atom({
   default: null,
 });
 
-export const unAvailableState = atom({
-  key: "dutch",
-  default: false,
+export const emailSuccessStateDetails = atom({
+  key: "mail",
+  default: null,
+});
+
+export const whatsappSuccessStateDetails = atom({
+  key: "whatsApp",
+  default: null,
+});
+
+export const verificationStateDetails = atom({
+  key: "verified",
+  default: null,
 });

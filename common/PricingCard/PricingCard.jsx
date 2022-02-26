@@ -12,10 +12,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import {
-  successState,
-  failureState,
-  unAvailableState,
-  successStateDetails,
+  smsSuccessStateDetails,
+  voiceSuccessStateDetails,
+  emailSuccessStateDetails,
+  whatsappSuccessStateDetails,
+  verificationStateDetails,
 } from "../../atoms";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { MdOutlineEmail } from "react-icons/md";
@@ -33,25 +34,34 @@ export const PricingCard = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [apiResponseStateDetails, setApiResponseStateDetails] =
-    useRecoilState(successStateDetails);
-  const [unAvailableStateDetails, setUnAvailableStateDetails] =
-    useRecoilState(unAvailableState);
+  const [smsApiResponseStateDetails, setSmsApiResponseStateDetails] =
+    useRecoilState(smsSuccessStateDetails);
 
-  const [apiResponseSuccessState, setApiResponseSuccessState] =
-    useRecoilState(successState);
-  const [apiResponseFailureState, setApiResponseFailureState] =
-    useRecoilState(failureState);
+  const [voiceApiResponseStateDetails, setVoiceApiResponseStateDetails] =
+    useRecoilState(voiceSuccessStateDetails);
+
+  const [emailApiResponseStateDetails, setEmailApiResponseStateDetails] =
+    useRecoilState(emailSuccessStateDetails);
+
+  const [whatsappApiResponseStateDetails, setWhatsappApiResponseStateDetails] =
+    useRecoilState(whatsappSuccessStateDetails);
+
+  const [
+    verificationApiResponseStateDetails,
+    setVerificationApiResponseStateDetails,
+  ] = useRecoilState(verificationStateDetails);
+
   useEffect(() => {
     if (selectedCountryCode.length > 0 && selectedCurrencyCode.length > 0) {
       getApiDataDetails(
         variant,
         selectedCountryCode,
         selectedCurrencyCode,
-        setApiResponseStateDetails,
-        setApiResponseFailureState,
-        setApiResponseSuccessState,
-        setUnAvailableStateDetails
+        setSmsApiResponseStateDetails,
+        setVoiceApiResponseStateDetails,
+        setEmailApiResponseStateDetails,
+        setWhatsappApiResponseStateDetails,
+        setVerificationApiResponseStateDetails
       );
     }
   }, [selectedCountryCode, selectedCurrencyCode]);
@@ -59,9 +69,10 @@ export const PricingCard = ({
   return (
     <>
       <Box
-        minW="340px"
-        maxWidth="340px"
-        minH="240px"
+        minW="320px"
+        maxWidth="320px"
+        minH="300px"
+        maxH="300px"
         display="flex"
         borderWidth="1px"
         borderRadius="8px"
@@ -124,8 +135,54 @@ export const PricingCard = ({
             <GridItem colSpan={1}>
               <Stack my="auto">
                 <Text>Starts at</Text>
-                <Text fontWeight="700" wordBreak>
-                  AED 0.00184 /sms
+                <Text
+                  fontWeight="700"
+                  wordBreak
+                  color={
+                    variant === "Voice"
+                      ? voiceApiResponseStateDetails?.code === "500"
+                        ? "#808080"
+                        : "#000000"
+                      : variant === "Email"
+                      ? emailApiResponseStateDetails?.code === "500"
+                        ? "#808080"
+                        : "#000000"
+                      : variant === "Whatsapp"
+                      ? whatsappApiResponseStateDetails?.code === "500"
+                        ? "#808080"
+                        : "#000000"
+                      : variant === "Verification"
+                      ? verificationApiResponseStateDetails?.code === "500"
+                        ? "#808080"
+                        : "#000000"
+                      : variant === "SMS"
+                      ? smsApiResponseStateDetails.code === "500"
+                        ? "#808080"
+                        : "#000000"
+                      : "#000000"
+                  }
+                >
+                  {variant === "Voice"
+                    ? voiceApiResponseStateDetails?.code === "500"
+                      ? "Not Available"
+                      : `${selectedCurrencyCode} ${voiceApiResponseStateDetails?.data?.incoming} /sec`
+                    : variant === "Email"
+                    ? emailApiResponseStateDetails?.code === "500"
+                      ? "Not Available"
+                      : `${selectedCurrencyCode} ${emailApiResponseStateDetails?.data?.charge} /mail`
+                    : variant === "Whatsapp"
+                    ? whatsappApiResponseStateDetails?.code === "500"
+                      ? "Not Available"
+                      : `${selectedCurrencyCode} ${whatsappApiResponseStateDetails?.data?.template} /msg`
+                    : variant === "Verification"
+                    ? verificationApiResponseStateDetails?.code === "500"
+                      ? "Not Available"
+                      : `${selectedCurrencyCode}  0.00000 /token`
+                    : variant === "SMS"
+                    ? smsApiResponseStateDetails.code === "500"
+                      ? "Not Available"
+                      : `${selectedCurrencyCode} ${smsApiResponseStateDetails?.data?.dnd} /sms`
+                    : null}
                 </Text>
               </Stack>
             </GridItem>
@@ -143,10 +200,48 @@ export const PricingCard = ({
               </Text>
             </GridItem>
             <GridItem colSpan={1}>
-              <Text>{variant === "Email" ? "" : "Not Available"}</Text>
+              {variant === "Voice" ? (
+                <Text color="#808080" fontWeight="700">
+                  Not Available
+                </Text>
+              ) : variant === "SMS" ? (
+                <Text color="#808080" fontWeight="700">
+                  Not Available
+                </Text>
+              ) : variant === "Email" ? (
+                <Text />
+              ) : (
+                <Stack my="auto">
+                  <Text display>Starts at</Text>
+                  <Text
+                    fontWeight="700"
+                    wordBreak
+                    color={
+                      variant === "Whatsapp"
+                        ? whatsappApiResponseStateDetails?.code === "500"
+                          ? "#808080"
+                          : "#000000"
+                        : variant === "Verification"
+                        ? verificationApiResponseStateDetails?.code === "500"
+                          ? "#808080"
+                          : "#000000"
+                        : "#000000"
+                    }
+                  >
+                    {variant === "Whatsapp"
+                      ? whatsappApiResponseStateDetails?.code === "500"
+                        ? "Not Available"
+                        : ` ${selectedCurrencyCode} 0.00000 /msg`
+                      : variant === "Verification"
+                      ? verificationApiResponseStateDetails?.code === "500"
+                        ? "Not Available"
+                        : `${selectedCurrencyCode} ${verificationApiResponseStateDetails?.data?.charge} /token`
+                      : ` Not Available`}
+                  </Text>
+                </Stack>
+              )}
             </GridItem>
           </Grid>
-          {/* To Receive SMS */}
           <HStack
             as="button"
             alignSelf="flex-end"
@@ -162,7 +257,18 @@ export const PricingCard = ({
           </HStack>
         </Stack>
       </Box>
-      <DetailsModal isOpen={isOpen} onClose={onClose} variant={variant} />
+      <DetailsModal
+        isOpen={isOpen}
+        onClose={onClose}
+        variant={variant}
+        smsApiResponseStateDetails={smsApiResponseStateDetails}
+        voiceApiResponseStateDetails={voiceApiResponseStateDetails}
+        emailApiResponseStateDetails={emailApiResponseStateDetails}
+        whatsappApiResponseStateDetails={whatsappApiResponseStateDetails}
+        verificationApiResponseStateDetails={
+          verificationApiResponseStateDetails
+        }
+      />
     </>
   );
 };

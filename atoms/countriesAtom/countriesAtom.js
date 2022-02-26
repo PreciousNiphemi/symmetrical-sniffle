@@ -1,5 +1,8 @@
 import { atom, selector } from "recoil";
 
+//TODO
+// * Restructure atom state and selector to make it easier to debug
+
 export const countriesState = atom({
   key: "countriesStateDetails",
   default: null,

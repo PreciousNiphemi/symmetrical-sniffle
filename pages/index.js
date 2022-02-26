@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
+  Box,
   Flex,
   Text,
-  Box,
-  Container,
   Wrap,
-  WrapItem,
   Stack,
+  useToast,
+  WrapItem,
+  Container,
 } from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/react";
+
 import Select from "react-select";
-import { PricingCard, DetailsModal } from "../common";
+import { PricingCard } from "../common";
 import {
   countriesState,
   countryListState,
