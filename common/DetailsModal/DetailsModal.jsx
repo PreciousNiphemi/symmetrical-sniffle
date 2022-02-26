@@ -4,7 +4,6 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 import { EmailModalContent } from "./EmailModalContent";
@@ -23,7 +22,7 @@ export const DetailsModalContent = (props) => {
       return <EmailModalContent />;
     case "Whatsapp":
       return <WhatsAppModalContent />;
-    case "Verificaiton":
+    case "Verification":
       return <VerificationModalContent />;
 
     default:
@@ -31,26 +30,44 @@ export const DetailsModalContent = (props) => {
   }
 };
 
-export const DetailsModal = ({}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+export const DetailsModal = ({ isOpen, onClose, variant }) => {
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
       <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
             <DetailsModalContent
-              {...(oobCode
-                ? {
-                    variant: "change-password",
-                    oobCode: oobCode,
-                  }
-                : {
-                    variant: "enter-email",
-                  })}
+              {...(variant
+                ? variant === "SMS"
+                  ? {
+                      variant: variant,
+                      data: "hello",
+                    }
+                  : variant === "Voice"
+                  ? {
+                      variant: variant,
+                      data: "what",
+                    }
+                  : variant === "Email"
+                  ? {
+                      variant: variant,
+                      data: "duu",
+                    }
+                  : variant === "Whatsapp"
+                  ? {
+                      variant: variant,
+                      data: "omo",
+                    }
+                  : variant === "Verification"
+                  ? {
+                      variant: variant,
+                      data: "blah",
+                    }
+                  : null
+                : null)}
             />
           </ModalBody>
         </ModalContent>

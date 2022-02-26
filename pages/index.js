@@ -19,7 +19,7 @@ import {
   selectedCountryState,
   countryCurrenciesState,
 } from "../atoms";
-// import { getSmsDetails } from "../utils";
+
 import { cardConstants } from "../constants";
 
 export default function Home() {
@@ -138,7 +138,6 @@ export default function Home() {
           </Text>
         </Stack>
       </Container>
-      {/* <DetailsModal /> */}
       <Flex justifyContent="center" alignSelf="center" width="100%">
         <Wrap
           justify="center"
