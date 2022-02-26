@@ -250,7 +250,30 @@ export const PricingCard = ({
             _hover={{
               textDecoration: "underline",
             }}
-            onClick={onOpen}
+            // onClick={onOpen}
+            onClick={
+              variant === "Voice"
+                ? voiceApiResponseStateDetails?.code === "500"
+                  ? null
+                  : onOpen
+                : variant === "Email"
+                ? emailApiResponseStateDetails?.code === "500"
+                  ? null
+                  : onOpen
+                : variant === "Whatsapp"
+                ? whatsappApiResponseStateDetails?.code === "500"
+                  ? null
+                  : onOpen
+                : variant === "Verification"
+                ? verificationApiResponseStateDetails?.code === "500"
+                  ? null
+                  : onOpen
+                : variant === "SMS"
+                ? smsApiResponseStateDetails.code === "500"
+                  ? null
+                  : onOpen
+                : null
+            }
           >
             <Text>See more details</Text>
             <Icon as={BsArrowRightShort} width={6} height={6} />
@@ -272,3 +295,6 @@ export const PricingCard = ({
     </>
   );
 };
+
+//TODO
+// * Refactor file to prevent headache during debugging
